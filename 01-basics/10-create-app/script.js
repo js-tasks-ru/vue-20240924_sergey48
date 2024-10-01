@@ -16,7 +16,7 @@ const appConfig = defineComponent({
     }
   },
 
-  template: '<div>Сегодня {{ formatAsLocalLongDate(new Date()) }}</div>>',
+  template: '<div>Сегодня {{ formatAsLocalLongDate(new Date()) }}</div>',
 })
 
 const app = createApp(appConfig)
