@@ -1,8 +1,8 @@
 import { defineComponent, createApp } from 'vue'
 
 
-const appConfig = defineComponent({
-  name: '01Basics',
+const App = defineComponent({
+  name: 'CreateApp',
 
   setup: () => {
 
@@ -19,6 +19,4 @@ const appConfig = defineComponent({
   template: '<div>Сегодня {{ formatAsLocalLongDate(new Date()) }}</div>',
 })
 
-const app = createApp(appConfig)
-
-app.mount('#app');
+createApp(App).mount('#app')
