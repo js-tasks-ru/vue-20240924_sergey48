@@ -16,21 +16,25 @@ export default defineComponent({
       return Math.round(pressureHpa * 3 / 4)
     }
 
-    const timeToTimestamp = (time) => {
-      return Date.parse('1970-01-01T' + time)
+    const isNignt = (dt, sunrise, sunset) => {
+      return dt < sunrise || dt > sunset
     }
 
-    const isNignt = (dt, sunrise, sunset) => {
-      const ts = timeToTimestamp(dt);
-      return ts < timeToTimestamp(sunrise) || ts > timeToTimestamp(sunset)
+    const getDetails = (row) => {
+      return [
+        {label: 'Давление, мм рт. ст.', value: pressureHpaToMmhg(row.pressure)},
+        {label: 'Влажность, %', value: row.humidity},
+        {label: 'Облачность, %', value: row.clouds},
+        {label: 'Ветер, м/с', value: row.wind_speed},
+      ]
     }
 
     return {
       weatherData,
       weatherConditionIcons,
       tempKelvToCels,
-      pressureHpaToMmhg,
       isNignt,
+      getDetails
     }
   },
 
@@ -41,8 +45,8 @@ export default defineComponent({
       <ul v-if="weatherData" class="weather-list unstyled-list">
         <li
           v-for="row in weatherData"
+          class="weather-card"
           :class="{
-            'weather-card': true,
             'weather-card--night': isNignt(row.current.dt, row.current.sunrise, row.current.sunset)
           }"
         >
@@ -66,13 +70,7 @@ export default defineComponent({
             <div class="weather-conditions__temp">{{ tempKelvToCels(row.current.temp) }} °C</div>
           </div>
           <div class="weather-details">
-            <!-- Возможно, спорное решение, но хотелось избавится от однотипных блоков разметки -->
-            <div class="weather-details__item" v-for="details in [
-                {label: 'Давление, мм рт. ст.', value: pressureHpaToMmhg(row.current.pressure)},
-                {label: 'Влажность, %', value: row.current.humidity},
-                {label: 'Облачность, %', value: row.current.clouds},
-                {label: 'Ветер, м/с', value: row.current.wind_speed},
-              ]">
+            <div class="weather-details__item" v-for="details in getDetails(row.current)">
               <div class="weather-details__item-label">{{ details.label }}</div>
               <div class="weather-details__item-value">{{ details.value }}</div>
             </div>
