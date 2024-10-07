@@ -41,12 +41,8 @@ export default defineComponent({
             <MeetupDescription :description="meetup.description" />
 
             <h2>Программа</h2>
-            <template v-if="meetup.agenda.length">
-              <MeetupAgenda :agenda="meetup.agenda" />
-            </template>
-            <template v-else>
-              <UiAlert>Программа пока пуста...</UiAlert>
-            </template>
+            <MeetupAgenda v-if="meetup.agenda.length" :agenda="meetup.agenda" />
+            <UiAlert v-else>Программа пока пуста...</UiAlert>
 
           </div>
           <div class="meetup__aside">
