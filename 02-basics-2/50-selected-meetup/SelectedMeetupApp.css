@@ -14,3 +14,7 @@
 
 .meetup-selector__cover {
 }
+
+.meetup-selector__cover.loading {
+  opacity: .5;
+}
