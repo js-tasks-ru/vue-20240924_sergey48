@@ -11,10 +11,11 @@
   width: 100%;
   height: 100%;
 }
-
-.stretch-container > img,
-.stretch-container > video,
-.stretch-container > picture {
+/* или */
+.stretch-container > :slotted(img),
+/* или */
+.stretch-container > :deep(video),
+.stretch-container > :deep(picture) {
   object-fit: scale-down;
 }
 </style>
