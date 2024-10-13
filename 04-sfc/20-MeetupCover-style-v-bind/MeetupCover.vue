@@ -11,11 +11,11 @@ const props = defineProps({
   },
 })
 
-const bgStyle = computed(() => (props.image ? { '--bg-url': `url('${props.image}')` } : undefined))
+const bgUrl = computed(() => (props.image ? `url('${props.image}')` : null))
 </script>
 
 <template>
-  <div class="meetup-cover" :style="bgStyle">
+  <div class="meetup-cover">
     <h1 class="meetup-cover__title">{{ title }}</h1>
   </div>
 </template>
@@ -26,6 +26,7 @@ const bgStyle = computed(() => (props.image ? { '--bg-url': `url('${props.image}
   background-position: center;
   /* Если изображение присутствует - берём его из CSS переменной, установленной на элемент в шаблоне */
   /* Иначе выводим изображение по умолчанию - var(--default-cover) */
+  --bg-url: v-bind('bgUrl');
   background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), var(--bg-url, var(--default-cover));
   display: flex;
   flex-direction: column;
